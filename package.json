@@ -1,0 +1,17 @@
+{
+  "name": "gc-transmanage-vite",
+  "version": "0.0.0",
+  "scripts": {
+    "build-css": "tailwindcss -i tailwind-styles.css -o style.css",
+    "dev": "vite",
+    "build": "vite build",
+    "serve": "vite preview"
+  },
+  "devDependencies": {
+    "vite": "^2.5.2",
+    "postcss": "^8.3.6",
+    "tailwindcss": "^2.2.9",
+    "@tailwindcss/forms": "^0.3.3",
+    "autoprefixer": "^10.3.3"
+  }
+}
