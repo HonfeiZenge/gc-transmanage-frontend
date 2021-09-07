@@ -89,7 +89,7 @@ dataTable.addEventListener('click', e => {
 const search_text = document.getElementById('searchByName')
 search_text.addEventListener('keyup', () => {
   if (search_text.value !== '') {
-    const uri = 'http://localhost:5000/search?term='
+    const uri = 'http://localhost:5000/search'
     const term = search_text.value
     
     const load = async () => {
