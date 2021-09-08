@@ -5,7 +5,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta http-equiv="X-UA-Compatible" content="ie=edge">
   <link rel="icon" type="image/svg+xml" href="favicon.svg" />
-  <title>Front End</title>
+  <title>GC Dashboard</title>
 </head>
 <body class="bg-gray-200">
   
@@ -40,13 +40,13 @@
             </h1>
           </div>
         </a>
-        <a id="input_trans">
+        <a href="transaction-recap.html">
           <div class="flex p-3 text-gray-200 cursor-pointer hover:bg-blue-400 hover:text-white transition ease-out duration-500">
             <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 p-1" fill="none" viewBox="0 0 24 24" stroke="currentColor">
               <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 7v10c0 2.21 3.582 4 8 4s8-1.79 8-4V7M4 7c0 2.21 3.582 4 8 4s8-1.79 8-4M4 7c0-2.21 3.582-4 8-4s8 1.79 8 4m0 5c0 2.21-3.582 4-8 4s-8-1.79-8-4" />
             </svg>
             <h1 class="pl-2">
-              Input Transaksi
+              Rekap Transaksi
             </h1>
           </div>
         </a>
@@ -65,7 +65,12 @@
       <div class="rounded-md bg-white m-7">
         <header class="flex justify-between bg-white rounded-t p-3">
           <h1 class="text-gray-600">Show All Transaction</h1>
-          <input type="text" id="searchByName" class="rounded-lg p-1 w-1/4">
+          <div class="w-1/4 h-10 flex">
+            <button id="input_trans" class="w-1/2 p-1 rounded-lg shadow-md bg-green-500 text-md text-white text-xs font-bold focus:outline-none hover:bg-green-700 cursor-pointer">
+              Add New Transaction
+            </button>
+            <input type="text" id="searchByName" class="w-1/2 rounded-lg p-1 ml-1">
+          </div>
         </header>
         <hr class="w-full border-gray-300">
 
@@ -73,22 +78,18 @@
           <table class="table w-full border border-gray-600 bg-white">
             <thead class="bg-gray-400">
               <tr class="border-b-2 border-gray-600">
-                <th class="transaction__table__head py-3 th__data">#</th>
+                <th class="transaction__table__head py-3">#</th>
                 <th class="transaction__table__head">Nama Player</th>
-                <th class="transaction__table__head">Player Class</th>
-                <th class="transaction__table__head">Pick Up</th>
-                <th class="transaction__table__head">Rate</th>
-                <th class="transaction__table__head">Player Deposit</th>
-                <th class="transaction__table__head">Company Modal</th>
+                <th class="transaction__table__head">Player Server</th>
+                <th class="transaction__table__head">Start Gold</th>
+                <th class="transaction__table__head">Finish Gold</th>
+                <th class="transaction__table__head">Pick up</th>
                 <th class="transaction__table__head">Tanggal</th>
                 <th class="transaction__table__head" colspan="2">Actions</th>
               </tr>
             </thead>
-            <tbody class="show__transaction">
+            <tbody class="show__transaction" id="show_transaction">
               <!-- show data from api -->
-              <tr class="border border-gray-600">
-                
-              </tr>
             </tbody>
           </table>
         </main>

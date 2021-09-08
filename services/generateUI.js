@@ -1,16 +1,15 @@
 // generate all transactions table
 const generateAllTransactionsTable = (i, data, dataTable) => {
-  const time = new Date(data.insertedAt);
+  const time = new Date(data.updatedAt);
   const html = `
-  <tr>
-    <td class="transaction__table__data py-2">${i}</td>
+  <tr class="border border-gray-600">
+    <td class="transaction__table__data">${i}</td>
     <td class="transaction__table__data">${data.accName}</td>
-    <td class="transaction__table__data">${data.accClass}</td>
+    <td class="transaction__table__data">${data.accServer}</td>
+    <td class="transaction__table__data">${data.startGold}</td>
+    <td class="transaction__table__data">${data.finishGold}</td>
     <td class="transaction__table__data">${data.goldDeposited}</td>
-    <td class="transaction__table__data">${data.goldRate}</td>
-    <td class="transaction__table__data">${data.playerDeposit}</td>
-    <td class="transaction__table__data">${data.comModal}</td>
-    <td class="transaction__table__data">${time.toString().slice(0, 24)}</td>
+    <td class="transaction__table__data">${time.toString().substr(7, 18)}</td>
     <td class="transaction__table__data p-2 edit__btn" id="${data._id}">
       <svg xmlns="http://www.w3.org/2000/svg" class="h-10 w-10 p-2 rounded-lg shadow-md bg-green-500 text-md text-white font-bold focus:outline-none hover:bg-green-700 cursor-pointer" fill="none" viewBox="0 0 24 24" stroke="currentColor">
         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z" />
@@ -38,15 +37,6 @@ const generateCreateTransForm = (create_trans) => {
         <input type="text" name="acc_server" id="acc__server" class="text__form" required>
       </div> 
       <div class="py-2">
-        <label for="acc__class">Class Player</label>
-        <select name="acc__class" id="acc__class" class="w-full px-3 py-2 rounded-lg border-gray-300 shadow-sm" required>
-          <option value="none">- Select Class -</option>
-          <option value="honored">Honored</option>
-          <option value="revered">Revered</option>
-          <option value="exalted">Exalted</option>
-        </select>
-      </div>
-      <div class="py-2">
         <label for="start__gold">Starting Gold</label>
         <input type="number" name="start__gold" id="start__gold" class="text__form" required>
       </div>
@@ -59,10 +49,6 @@ const generateCreateTransForm = (create_trans) => {
         <input type="number" name="gold__deposited" id="gold__deposited" class="text__form" required>
       </div>
       <div class="py-2">
-        <label for="gold__rate">Rate Gold</label>
-        <input type="number" name="gold__rate" id="gold__rate" class="text__form" required>
-      </div>
-      <div class="py-2">
         <input type="submit" value="Simpan" class="my-2 p-3 rounded-lg shadow-md bg-red-500 cursor-pointer text-md text-white font-bold">
       </div>
   `
@@ -72,10 +58,6 @@ const generateCreateTransForm = (create_trans) => {
 // generate edit form
 const generateEditForm = (data, select_modal_body) => {
   let html = `
-  <div class="py-2">
-    <label for="acc__class">Player Class</label>
-    <input type="text" name="acc__class" id="acc__class" class="text__form" value="${data.accClass}" required>
-  </div>
   <div class="py-2">
     <label for="start__gold">Starting Gold</label>
     <input type="number" name="start__gold" id="start__gold" class="text__form" value="${data.startGold}" required>
@@ -92,11 +74,6 @@ const generateEditForm = (data, select_modal_body) => {
     <input type="submit" value="Simpan" class="my-2 p-3 rounded-lg shadow-md bg-green-500 cursor-pointer text-md text-white font-bold">
   </div>
   `
-  // <div class="py-2">
-  //   <label for="gold__rate">Rate Gold</label>
-  //   <input type="number" name="gold__rate" id="gold__rate" class="text__form" value="${data.goldRate}" required>
-  // </div>
-
   select_modal_body.innerHTML = html
 }
 

@@ -26,11 +26,9 @@ input_trans.addEventListener('click', () => {
     const transactionData = {
       accName: create_trans_form.acc__name.value,
       accServer: create_trans_form.acc__server.value,
-      accClass: create_trans_form.acc__class.value,
       startGold: create_trans_form.start__gold.value,
       finishGold: create_trans_form.finish__gold.value,
       goldDeposited: create_trans_form.gold__deposited.value,
-      goldRate: create_trans_form.gold__rate.value,
     }
 
     if (parseInt(transactionData.goldDeposited, 10) > parseInt(transactionData.finishGold, 10)) {
@@ -61,11 +59,9 @@ dataTable.addEventListener('click', e => {
           e.preventDefault()
 
           const transactionData = {
-            accClass: select_modal_body.acc__class.value,
             startGold: select_modal_body.start__gold.value,
             finishGold: select_modal_body.finish__gold.value,
             goldDeposited: select_modal_body.gold__deposited.value,
-            goldRate: data.goldRate
           }
 
           if (parseInt(transactionData.goldDeposited, 10) > parseInt(transactionData.finishGold, 10)) {
@@ -93,7 +89,7 @@ search_text.addEventListener('keyup', () => {
     const term = search_text.value
     
     const load = async () => {
-      const make = await fetch(`${uri}${term}`)
+      const make = await fetch(`${uri}?term=${term}`)
       const response = await make.json()
       const data = response.data
       return data
@@ -105,9 +101,9 @@ search_text.addEventListener('keyup', () => {
           <tr>
             <td class="transaction__table__data">${data.accName}</td>
             <td class="transaction__table__data">${data.accServer}</td>
-            <td class="transaction__table__data">${data.accClass}</td>
+            <td class="transaction__table__data">${data.startGold}</td>
+            <td class="transaction__table__data">${data.finishGold}</td>
             <td class="transaction__table__data">${data.goldDeposited}</td>
-            <td class="transaction__table__data">${data.goldRate}</td>
             <td class="transaction__table__data">${data.updatedAt}</td>
             <td class="transaction__table__data p-2 edit__btn" id="${data._id}">
               <svg xmlns="http://www.w3.org/2000/svg" class="h-10 w-10 p-2 rounded-lg shadow-md bg-green-500 text-md text-white font-bold focus:outline-none hover:bg-green-700 cursor-pointer" fill="none" viewBox="0 0 24 24" stroke="currentColor">
