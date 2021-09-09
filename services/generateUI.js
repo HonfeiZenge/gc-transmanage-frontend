@@ -28,29 +28,29 @@ const generateAllTransactionsTable = (i, data, dataTable) => {
 // generate create transaction form
 const generateCreateTransForm = (create_trans) => {
   let html = `
-      <div class="py-2">
-        <label for="acc__name">Nama Player</label>
-        <input type="text" name="acc__name" id="acc__name" class="text__form" required>
-      </div>
-      <div class="py-2">
-        <label for="acc__server">Nama Server Player</label>
-        <input type="text" name="acc_server" id="acc__server" class="text__form" required>
-      </div> 
-      <div class="py-2">
-        <label for="start__gold">Starting Gold</label>
-        <input type="number" name="start__gold" id="start__gold" class="text__form" required>
-      </div>
-      <div class="py-2">
-        <label for="finish__gold">Finish Gold</label>
-        <input type="number" name="finish__gold" id="finish__gold" class="text__form" required>
-      </div>
-      <div class="py-2">
-        <label for="gold__deposited">Jumlah Gold di pick-up</label>
-        <input type="number" name="gold__deposited" id="gold__deposited" class="text__form" required>
-      </div>
-      <div class="py-2">
-        <input type="submit" value="Simpan" class="my-2 p-3 rounded-lg shadow-md bg-red-500 cursor-pointer text-md text-white font-bold">
-      </div>
+    <div class="py-2">
+      <label for="acc__name">Nama Player</label>
+      <input type="text" name="acc__name" id="acc__name" class="text__form" required>
+    </div>
+    <div class="py-2">
+      <label for="acc__server">Nama Server Player</label>
+      <input type="text" name="acc_server" id="acc__server" class="text__form" required>
+    </div> 
+    <div class="py-2">
+      <label for="start__gold">Starting Gold</label>
+      <input type="number" name="start__gold" id="start__gold" class="text__form" required>
+    </div>
+    <div class="py-2">
+      <label for="finish__gold">Finish Gold</label>
+      <input type="number" name="finish__gold" id="finish__gold" class="text__form" required>
+    </div>
+    <div class="py-2">
+      <label for="gold__deposited">Jumlah Gold di pick-up</label>
+      <input type="number" name="gold__deposited" id="gold__deposited" class="text__form" required>
+    </div>
+    <div class="py-2">
+      <input type="submit" value="Simpan" class="my-2 p-3 rounded-lg shadow-md bg-red-500 cursor-pointer text-md text-white font-bold">
+    </div>
   `
   create_trans.innerHTML += html
 }
