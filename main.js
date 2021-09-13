@@ -4,7 +4,9 @@ import recapReqHandler from './services/recapReqHandler'
 import './style.css'
 
 const uri = 'http://localhost:5000/api/transactions'
+const recap_uri = 'http://localhost:5000/api/transactions_recap'
 
+// select every element needed to be manipulated by dom from index.html
 const select_wrapper = document.getElementById('wrapper')
 const wrapper_for_input = document.getElementById('wrapper_for_input')
 const wrapper_recap_details = document.getElementById('wrapper_recap_details')
@@ -33,6 +35,7 @@ input_trans.addEventListener('click', () => {
       startGold: create_trans_form.start__gold.value,
       finishGold: create_trans_form.finish__gold.value,
       goldDeposited: create_trans_form.gold__deposited.value,
+      goldRate: null,
     }
 
     if (parseInt(transactionData.goldDeposited, 10) > parseInt(transactionData.finishGold, 10)) {
@@ -46,7 +49,7 @@ input_trans.addEventListener('click', () => {
 
 // get single transaction when click edit action button
 dataTable.addEventListener('click', e => {
-  const trans_id = e.target.parentElement.id
+  const trans_id = e.target.parentElement.getAttribute('data-id')
   const btn = e.target.parentElement
   
   if (btn.classList.contains('edit__btn')) {
@@ -58,22 +61,27 @@ dataTable.addEventListener('click', e => {
       .then(data => {
         // generate edit form and append it to edit form
         generateUI.generateEditForm(data, select_modal_body)
-        // update selected data
-        select_modal_body.addEventListener('submit', e => {
-          e.preventDefault()
 
+        function updateTransactions() {
           const transactionData = {
             startGold: select_modal_body.start__gold.value,
             finishGold: select_modal_body.finish__gold.value,
             goldDeposited: select_modal_body.gold__deposited.value,
+            goldRate: select_modal_body.gold__rate.value,
           }
-
+      
           if (parseInt(transactionData.goldDeposited, 10) > parseInt(transactionData.finishGold, 10)) {
             alert('finish gold tidak boleh kurang dari gold deposited')
           } else {
             const request = requestHandler.makeRequest(`${uri}/${trans_id}`, 'PUT', transactionData)
             requestHandler.updateSingletransaction(request)
           }
+        }
+
+        // update selected data
+        const submit_btn = document.getElementById('submit')
+        submit_btn.addEventListener('click', () => {
+          updateTransactions()
         })
       })
   }
@@ -98,30 +106,11 @@ search_text.addEventListener('keyup', () => {
       const data = response.data
       return data
     }
+
     dataTable.innerHTML = ''
     load().then(item => {
       item.map(data => {
-        let html = `
-          <tr id="table_trans_data" data-id="${data.startGold},${data.finishGold},${data.goldDeposited},${data.insertedAt}">
-            <td class="transaction__table__data">${data.accName}</td>
-            <td class="transaction__table__data">${data.accServer}</td>
-            <td class="transaction__table__data">${data.startGold}</td>
-            <td class="transaction__table__data">${data.finishGold}</td>
-            <td class="transaction__table__data">${data.goldDeposited}</td>
-            <td class="transaction__table__data">${data.insertedAt}</td>
-            <td class="transaction__table__data p-2 edit__btn" id="${data._id}">
-              <svg xmlns="http://www.w3.org/2000/svg" class="h-10 w-10 p-2 rounded-lg shadow-md bg-green-500 text-md text-white font-bold focus:outline-none hover:bg-green-700 cursor-pointer" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z" />
-              </svg>
-            </td>
-            <td class="transaction__table__data p-2 delete__btn" id="${data._id}">
-              <svg xmlns="http://www.w3.org/2000/svg" class="h-10 w-10 p-2 rounded-lg shadow-md bg-red-500 text-md text-white font-bold focus:outline-none hover:bg-red-700 cursor-pointer" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16" />
-              </svg>
-            </td>
-          </tr>
-        `
-        dataTable.innerHTML += html
+        generateUI.generateSearchedTable(data, dataTable)
       })
 
       const raw_data = document.querySelectorAll('#table_trans_data')
@@ -133,19 +122,11 @@ search_text.addEventListener('keyup', () => {
         idArray.push({result})
       })
       
-      const sva = {
-        sva: [...idArray]
-      }
+      const sva = { sva: [...idArray] }
 
-      const ojbd = {
-        dataRekap: [],
-        rate: null
-      }
+      const ojbd = { dataRekap: [] }
 
-      sva.sva.forEach(svad => {
-        svad.result.push(ojbd.rate)
-        ojbd.dataRekap.push({...svad.result})
-      })
+      sva.sva.forEach(svad => { ojbd.dataRekap.push({...svad.result}) })
 
       let rekap = []
       if (ojbd.dataRekap.length) {
@@ -175,7 +156,7 @@ search_text.addEventListener('keyup', () => {
           }
           console.log(recapData)
   
-          const request = requestHandler.makeRequest('http://localhost:5000/api/transactions_recap', 'POST', recapData)
+          const request = requestHandler.makeRequest(recap_uri, 'POST', recapData)
           const addData = async () => {
             try {
               const res = await fetch(request)
@@ -196,7 +177,6 @@ search_text.addEventListener('keyup', () => {
         }
 
       })
-
     })
   } else if (search_text.value === ''){
     requestHandler.getAllTransactions(uri, dataTable)
@@ -214,6 +194,7 @@ document.getElementById('route_to_recap').onclick = function showRecap() {
   recapReqHandler.printLoad(show_recap_transactions)
 }
 
+const recap_details_table = document.getElementById('recap_details_table')
 show_recap_transactions.addEventListener('click', e => {
   const details_btn = e.target.parentElement
   const recap_data_id = details_btn.getAttribute('data-id')
@@ -221,7 +202,7 @@ show_recap_transactions.addEventListener('click', e => {
   if(details_btn.id === 'details_recap') {
     const getRecapDetails = async () => {
       try {
-        const res = await fetch(`http://localhost:5000/api/transactions_recap/${recap_data_id}`)
+        const res = await fetch(`${recap_uri}/${recap_data_id}`)
         if (!res.ok) {
           throw Error ('fail to fetch the data')
         }
@@ -234,51 +215,14 @@ show_recap_transactions.addEventListener('click', e => {
 
     getRecapDetails()
       .then(details => {
+        const recap_table = wrapper_recap_details.querySelector('table')
+
         wrapper_recap_details.classList.add('edit__process__bg')
         recap_details_form.classList.add('input__trans__body')
+        recap_table.classList.add('input__trans__body')
+        recap_table.removeAttribute('hidden')
         
-        let html = `
-        <div class="py-2">
-          <label for="acc__name">Nama Player</label>
-          <input type="text" name="acc__name" id="acc__name" class="text__form" value="${details.accName}" required>
-        </div>
-        <div class="py-2">
-          <label for="acc__server">Server Player</label>
-          <input type="text" name="acc_server" id="acc__server" class="text__form" value="${details.accServer}" required>
-        </div> 
-        <div class="py-2">
-          <label for="acc__class">Player Class</label>
-          <input type="text" name="acc__class" id="acc__class" class="text__form" value="${details.accClass}" required>
-        </div>
-        <div class="py-2">
-        `
-        recap_details_form.innerHTML = html
-
-        details.dataRekap.forEach(data => {
-          let table = `
-          <table class="table w-full border border-gray-600 bg-white">
-            <thead class="bg-gray-400">
-              <tr class="border-b-2 border-gray-600">
-                <th class="transaction__table__head">Start Gold</th>
-                <th class="transaction__table__head">Finish Gold</th>
-                <th class="transaction__table__head">Pick up</th>
-                <th class="transaction__table__head">Gold Rate</th>
-                <th class="transaction__table__head">Date</th>
-              </tr>
-            </thead>
-            <tbody>
-              <tr class="border border-gray-600">
-                <td class="transaction__table__data">${data.startGold}</td>
-                <td class="transaction__table__data">${data.finishGold}</td>
-                <td class="transaction__table__data">${data.goldDeposited}</td>
-                <td class="transaction__table__data">${data.goldRate}</td>
-                <td class="transaction__table__data">${data.createdAt.toString().slice(0, 7)}</td>
-              </tr>
-              </tbody>
-          </table>
-          `
-          recap_details_form.innerHTML += table
-        })
+        generateUI.generateFormRecapDetails(details, recap_details_form, recap_details_table)
       })
   }
 })
@@ -306,8 +250,12 @@ wrapper_for_input.addEventListener('click', e => {
 // remove js render form recap details
 wrapper_recap_details.addEventListener('click', e => {
   if (e.target.classList.contains('edit__process__bg')) {
+    const recap_table = wrapper_recap_details.querySelector('table')
+
     wrapper_recap_details.classList.remove('edit__process__bg')
     recap_details_form.classList.remove('input__trans__body')
+    recap_table.classList.remove('input__trans__body')
+    recap_table.setAttribute('hidden', true)
 
     recap_details_form.innerHTML = ''
   }

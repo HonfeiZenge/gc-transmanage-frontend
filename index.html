@@ -20,9 +20,22 @@
     <form id="create_transaction_form"></form>
   </div>
 
-  <!-- form input new transaction -->
+  <!-- form recap transaction details -->
   <div id="wrapper_recap_details" class="overflow-auto">
-    <form id="recap_details_form"></form>
+      <form id="recap_details_form"></form>
+      <table hidden>
+        <thead class="bg-gray-400">
+          <tr class="border-b-2 border-gray-600">
+            <th class="transaction__table__head">Nama Player</th>
+            <th class="transaction__table__head">Player Server</th>
+            <th class="transaction__table__head">Player Class</th>
+            <th class="transaction__table__head">Rate</th>
+            <th class="transaction__table__head">Date</th>
+          </tr>
+        </thead>
+        <tbody id="recap_details_table">
+        </tbody>
+      </table>
   </div>
 
   <div class="grid md:grid-cols-5 h-screen">
@@ -87,7 +100,7 @@
                 <th class="transaction__table__head" colspan="2">Actions</th>
               </tr>
             </thead>
-            <tbody class="show__transaction" id="show_transaction">
+            <tbody class="show__transaction">
               <tr class="border border-gray-600">
                 <td class="transaction__table__data">...</td>
                 <td class="transaction__table__data">...</td>
@@ -96,15 +109,11 @@
                 <td class="transaction__table__data">...</td>
                 <td class="transaction__table__data">...</td>
                 <td class="transaction__table__data">...</td>
-                <td class="transaction__table__data p-2 edit__btn">
-                  <svg xmlns="http://www.w3.org/2000/svg" class="h-10 w-10 p-2 rounded-lg shadow-md bg-green-500 text-md text-white font-bold focus:outline-none hover:bg-green-700 cursor-pointer" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z" />
-                  </svg>
+                <td class="transaction__table__data edit__btn py-2">
+                  <span class="material-icons p-2 rounded-lg shadow-md bg-green-500 text-md text-white focus:outline-none hover:bg-green-700 cursor-pointer">mode_edit_outline</span>
                 </td>
-                <td class="transaction__table__data p-2 delete__btn">
-                  <svg xmlns="http://www.w3.org/2000/svg" class="h-10 w-10 p-2 rounded-lg shadow-md bg-red-500 text-md text-white font-bold focus:outline-none hover:bg-red-700 cursor-pointer" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16" />
-                  </svg>
+                <td class="transaction__table__data delete__btn py-2">
+                  <span class="material-icons p-2 rounded-lg shadow-md bg-red-500 text-md text-white focus:outline-none hover:bg-red-700 cursor-pointer">delete</span>
                 </td>
               </tr>
             </tbody>
@@ -129,7 +138,7 @@
               <tr class="border-b-2 border-gray-600">
                 <th class="transaction__table__head">Nama Player</th>
                 <th class="transaction__table__head">Player Server</th>
-                <th class="transaction__table__head">Start Gold</th>
+                <th class="transaction__table__head">Player Class</th>
                 <th class="transaction__table__head">Date</th>
                 <th class="transaction__table__head">Details</th>
               </tr>

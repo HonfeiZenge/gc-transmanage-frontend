@@ -6,6 +6,7 @@ const load = fetch('http://localhost:5000/api/transactions_recap')
 
 const printLoad = async (table) => {
   const data = await load
+  table.innerHTML = ''
   data.forEach(item => {
     const time = new Date(item.insertedAt).toString().slice(8, 24)
     let html = `
