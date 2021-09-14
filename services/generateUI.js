@@ -133,8 +133,12 @@ const generateFormRecapDetails = (details, recap_details_form, recap_details_tab
   const makeLabel3 = document.createElement('label')
   const makeInputText1 = document.createElement('input')
   const makeInputText2 = document.createElement('input')
-  const makeInputText3 = document.createElement('input')
+  const makeSelectForm = document.createElement('select')
   const makeSubmit = document.createElement('input')
+  const makeOption1 = document.createElement('option')
+  const makeOption2 = document.createElement('option')
+  const makeOption3 = document.createElement('option')
+  const makeOption4 = document.createElement('option')
 
   makeDiv1.setAttribute('class', 'py-2')
   makeDiv2.setAttribute('class', 'py-2')
@@ -142,16 +146,19 @@ const generateFormRecapDetails = (details, recap_details_form, recap_details_tab
   makeDiv4.setAttribute('class', 'py-2')
   makeInputText1.setAttribute('type', 'text')
   makeInputText2.setAttribute('type', 'text')
-  makeInputText3.setAttribute('type', 'text')
   makeInputText1.setAttribute('class', 'text__form')
   makeInputText2.setAttribute('class', 'text__form')
-  makeInputText3.setAttribute('class', 'text__form')
+  makeSelectForm.setAttribute('class', 'text__form')
   makeInputText1.setAttribute('name', 'acc__name')
   makeInputText2.setAttribute('name', 'acc__server')
-  makeInputText3.setAttribute('name', 'acc__class')
+  makeSelectForm.setAttribute('name', 'acc__class')
   makeInputText1.setAttribute('required', '')
   makeInputText2.setAttribute('required', '')
-  makeInputText3.setAttribute('required', '')
+  makeSelectForm.setAttribute('required', '')
+  makeOption1.setAttribute('value', 'honored')
+  makeOption2.setAttribute('value', 'revered')
+  makeOption3.setAttribute('value', 'exalted')
+  makeOption4.setAttribute('value', details.accClass)
   makeSubmit.setAttribute('type', 'submit')
   makeSubmit.setAttribute('class', 'my-2 p-3 rounded-lg shadow-md bg-red-500 cursor-pointer text-md text-white font-bold')
 
@@ -160,12 +167,16 @@ const generateFormRecapDetails = (details, recap_details_form, recap_details_tab
   makeLabel3.innerText = 'Player Class'
   makeInputText1.value = details.accName
   makeInputText2.value = details.accServer
-  makeInputText3.value = details.accClass
+  makeOption1.textContent = 'honored'
+  makeOption2.textContent = 'revered'
+  makeOption3.textContent = 'exalted'
+  makeOption4.textContent = `${details.accClass} (Current Class)`
   makeSubmit.value = 'Simpan'
 
+  makeSelectForm.append(makeOption4, makeOption1, makeOption2, makeOption3)
   makeDiv1.append(makeLabel1, makeInputText1)
   makeDiv2.append(makeLabel2, makeInputText2)
-  makeDiv3.append(makeLabel3, makeInputText3)
+  makeDiv3.append(makeLabel3, makeSelectForm)
   makeDiv4.append(makeSubmit)
   recap_details_form.append(makeDiv1, makeDiv2, makeDiv3, makeDiv4)
 
