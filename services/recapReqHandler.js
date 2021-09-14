@@ -14,6 +14,8 @@ const printLoad = async (table) => {
         <td class="transaction__table__data">${item.accName}</td>
         <td class="transaction__table__data">${item.accServer}</td>
         <td class="transaction__table__data">${item.accClass}</td>
+        <td class="transaction__table__data">${item.playerGain}</td>
+        <td class="transaction__table__data">${item.companyGain}</td>
         <td class="transaction__table__data">${time}</td>
         <td data-id="${item._id}" id="details_recap" class="transaction__table__data">
           <span class="material-icons p-2 rounded-lg shadow-md bg-green-500 text-md text-white focus:outline-none hover:bg-green-700 cursor-pointer">mode_edit_outline</span>
@@ -24,6 +26,22 @@ const printLoad = async (table) => {
   })
 }
 
+const updateRecapData = async (request) => {
+  try {
+    const response = await fetch(request)
+    const transaction = await response.json()
+
+    if (transaction.status == 'success') {
+      window.location.replace('http://localhost:3000')
+    } else {
+      alert(`${transaction.status} Gagal Edit Data`)
+    }
+  } catch (err) {
+    return console.log(err.message)
+  }
+}
+
 export default {
-  printLoad
+  printLoad,
+  updateRecapData
 }

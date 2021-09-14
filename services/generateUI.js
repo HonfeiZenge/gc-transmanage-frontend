@@ -5,10 +5,10 @@ const generateAllTransactionsTable = (i, data, dataTable) => {
   <tr class="border border-gray-600">
     <td class="transaction__table__data">${i}</td>
     <td class="transaction__table__data">${data.accName}</td>
-    <td class="transaction__table__data">${data.accServer}</td>
     <td class="transaction__table__data">${data.startGold}</td>
     <td class="transaction__table__data">${data.finishGold}</td>
     <td class="transaction__table__data">${data.goldDeposited}</td>
+    <td class="transaction__table__data">${data.goldRate}</td>
     <td class="transaction__table__data">${time.toString().substr(7, 18)}</td>
     <td data-id="${data._id}" class="transaction__table__data edit__btn py-2">
       <span class="material-icons p-2 rounded-lg shadow-md bg-green-500 text-md text-white focus:outline-none hover:bg-green-700 cursor-pointer">mode_edit_outline</span>
@@ -28,10 +28,6 @@ const generateCreateTransForm = (create_trans) => {
       <label for="acc__name">Nama Player</label>
       <input type="text" name="acc__name" id="acc__name" class="text__form" required>
     </div>
-    <div class="py-2">
-      <label for="acc__server">Nama Server Player</label>
-      <input type="text" name="acc_server" id="acc__server" class="text__form" required>
-    </div> 
     <div class="py-2">
       <label for="start__gold">Starting Gold</label>
       <input type="number" name="start__gold" id="start__gold" class="text__form" required>
@@ -90,6 +86,7 @@ const generateSearchedTable = (data, dataTable) => {
   const makeData6 = document.createElement('td')
   const makeData7 = document.createElement('td')
   const makeData8 = document.createElement('td')
+  const makeData9 = document.createElement('td')
   const makeSpan1 = document.createElement('span')
   const makeSpan2 = document.createElement('span')
 
@@ -101,6 +98,7 @@ const generateSearchedTable = (data, dataTable) => {
   makeData4.setAttribute('class', 'transaction__table__data')
   makeData5.setAttribute('class', 'transaction__table__data')
   makeData6.setAttribute('class', 'transaction__table__data')
+  makeData9.setAttribute('class', 'transaction__table__data')
   makeData7.setAttribute('class', 'transaction__table__data edit__btn py-2')
   makeData7.setAttribute('data-id', data._id)
   makeData8.setAttribute('class', 'transaction__table__data delete__btn py-2')
@@ -114,12 +112,13 @@ const generateSearchedTable = (data, dataTable) => {
   makeData4.innerText = data.finishGold
   makeData5.innerText = data.goldDeposited
   makeData6.innerText = data.insertedAt
+  makeData9.innerText = data.goldRate
   makeSpan1.innerText = 'mode_edit_outline'
   makeSpan2.innerText = 'delete'
 
   makeData7.append(makeSpan1)
   makeData8.append(makeSpan2)
-  makeRow.append(makeData1, makeData2, makeData3, makeData4, makeData5, makeData6, makeData7, makeData8)
+  makeRow.append(makeData1, makeData2, makeData3, makeData4, makeData5, makeData9, makeData6, makeData7, makeData8)
   dataTable.append(makeRow)
 }
 
@@ -128,16 +127,19 @@ const generateFormRecapDetails = (details, recap_details_form, recap_details_tab
   const makeDiv1 = document.createElement('div')
   const makeDiv2 = document.createElement('div')
   const makeDiv3 = document.createElement('div')
+  const makeDiv4 = document.createElement('div')
   const makeLabel1 = document.createElement('label')
   const makeLabel2 = document.createElement('label')
   const makeLabel3 = document.createElement('label')
   const makeInputText1 = document.createElement('input')
   const makeInputText2 = document.createElement('input')
   const makeInputText3 = document.createElement('input')
+  const makeSubmit = document.createElement('input')
 
   makeDiv1.setAttribute('class', 'py-2')
   makeDiv2.setAttribute('class', 'py-2')
   makeDiv3.setAttribute('class', 'py-2')
+  makeDiv4.setAttribute('class', 'py-2')
   makeInputText1.setAttribute('type', 'text')
   makeInputText2.setAttribute('type', 'text')
   makeInputText3.setAttribute('type', 'text')
@@ -150,6 +152,8 @@ const generateFormRecapDetails = (details, recap_details_form, recap_details_tab
   makeInputText1.setAttribute('required', '')
   makeInputText2.setAttribute('required', '')
   makeInputText3.setAttribute('required', '')
+  makeSubmit.setAttribute('type', 'submit')
+  makeSubmit.setAttribute('class', 'my-2 p-3 rounded-lg shadow-md bg-red-500 cursor-pointer text-md text-white font-bold')
 
   makeLabel1.innerText = 'Nama Player'
   makeLabel2.innerText = 'Player Server'
@@ -157,11 +161,13 @@ const generateFormRecapDetails = (details, recap_details_form, recap_details_tab
   makeInputText1.value = details.accName
   makeInputText2.value = details.accServer
   makeInputText3.value = details.accClass
+  makeSubmit.value = 'Simpan'
 
   makeDiv1.append(makeLabel1, makeInputText1)
   makeDiv2.append(makeLabel2, makeInputText2)
   makeDiv3.append(makeLabel3, makeInputText3)
-  recap_details_form.append(makeDiv1, makeDiv2, makeDiv3)
+  makeDiv4.append(makeSubmit)
+  recap_details_form.append(makeDiv1, makeDiv2, makeDiv3, makeDiv4)
 
   // make table recap details dataRekap
   details.dataRekap.forEach(data => {

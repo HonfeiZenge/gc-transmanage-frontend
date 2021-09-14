@@ -31,7 +31,6 @@ input_trans.addEventListener('click', () => {
     
     const transactionData = {
       accName: create_trans_form.acc__name.value,
-      accServer: create_trans_form.acc__server.value,
       startGold: create_trans_form.start__gold.value,
       finishGold: create_trans_form.finish__gold.value,
       goldDeposited: create_trans_form.gold__deposited.value,
@@ -135,7 +134,7 @@ search_text.addEventListener('keyup', () => {
             startGold: Number(data[0]),
             finishGold: Number(data[1]),
             goldDeposited: Number(data[2]),
-            goldRate: data[4],
+            goldRate: Number(data[4]),
             createdAt: data[3] 
           }
           return data
@@ -184,6 +183,8 @@ search_text.addEventListener('keyup', () => {
 })
 
 // for managing recap transactions table
+
+// show all recap transactions
 document.getElementById('route_to_recap').onclick = function showRecap() {
   const transactions_container = document.getElementById('transactions_container')
   const recap_container = document.getElementById('recap_container')
@@ -194,6 +195,8 @@ document.getElementById('route_to_recap').onclick = function showRecap() {
   recapReqHandler.printLoad(show_recap_transactions)
 }
 
+
+// get details recap transactions based on recap id
 const recap_details_table = document.getElementById('recap_details_table')
 show_recap_transactions.addEventListener('click', e => {
   const details_btn = e.target.parentElement
@@ -222,7 +225,21 @@ show_recap_transactions.addEventListener('click', e => {
         recap_table.classList.add('input__trans__body')
         recap_table.removeAttribute('hidden')
         
+        recap_details_table.innerHTML = ''
         generateUI.generateFormRecapDetails(details, recap_details_form, recap_details_table)
+      
+        recap_details_form.addEventListener('submit', e => {
+          e.preventDefault()
+
+          const recapTransactionsData = {
+            accServer: recap_details_form.acc__server.value,
+            accClass: recap_details_form.acc__class.value,
+            dataRekap: details.dataRekap,
+          }
+
+          const request = requestHandler.makeRequest(`${recap_uri}/${recap_data_id}`, 'PUT', recapTransactionsData)
+          recapReqHandler.updateRecapData(request)
+        })
       })
   }
 })
