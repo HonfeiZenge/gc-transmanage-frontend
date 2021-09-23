@@ -72,7 +72,7 @@ const addNewTransaction = async (request) => {
     if (!response.ok) {
       throw Error('Failed to add transaction')
     }
-    alert('Berhasil menambahkan data baru')
+    // alert('Berhasil menambahkan data baru')
     window.location.replace('http://localhost:3000')
   } catch (err) {
     console.log(err.message)
@@ -86,7 +86,7 @@ const updateSingletransaction = async (request) => {
     const transaction = await response.json()
 
     if (transaction.status == 'success') {
-      alert('Berhasil Edit Data')
+      // alert('Berhasil Edit Data')
       window.location.replace('http://localhost:3000')
     } else {
       alert(`${transaction.status} Gagal Edit Data`)

@@ -41,7 +41,9 @@ const generateCreateTransForm = (create_trans) => {
       <input type="number" name="gold__deposited" id="gold__deposited" class="text__form" required>
     </div>
     <div class="py-2">
-      <input type="submit" value="Simpan" class="my-2 p-3 rounded-lg shadow-md bg-red-500 cursor-pointer text-md text-white font-bold">
+      <button id="submit" class="my-2 p-3 rounded-lg shadow-md bg-green-500 cursor-pointer text-md text-white font-bold">
+        Simpan
+      </button>
     </div>
   `
   create_trans.innerHTML += html
@@ -59,12 +61,20 @@ const generateEditForm = (data, select_modal_body) => {
     <input type="number" name="finish__gold" id="finish__gold" class="text__form" value="${data.finishGold}" required>
   </div>
   <div class="py-2">
-    <label for="gold__deposited">Gold Deposited</label>
+    <label for="gold__deposited">Pick up</label>
     <input type="number" name="gold__deposited" id="gold__deposited" class="text__form" value="${data.goldDeposited}" required>
   </div>
   <div class="py-2">
     <label>Gold Rate</label>
     <input type="number" name="gold__rate" class="text__form" value="${data.goldRate}" required>
+  </div>
+  <div class="py-2">
+    <label>Paid Status</label>
+    <select name="paid__status" class="text__form">
+      <option value="${data.paidStatus}">${data.paidStatus} (Current Status)</option>
+      <option value="process">process</option>
+      <option value="success">success</option>
+    </select>
   </div>
   <div class="py-2">
     <button id="submit" class="my-2 p-3 rounded-lg shadow-md bg-green-500 cursor-pointer text-md text-white font-bold">
@@ -128,9 +138,11 @@ const generateFormRecapDetails = (details, recap_details_form, recap_details_tab
   const makeDiv2 = document.createElement('div')
   const makeDiv3 = document.createElement('div')
   const makeDiv4 = document.createElement('div')
+  const makeDiv5 = document.createElement('div')
   const makeLabel1 = document.createElement('label')
   const makeLabel2 = document.createElement('label')
   const makeLabel3 = document.createElement('label')
+  const makeLabel4 = document.createElement('label')
   const makeInputText1 = document.createElement('input')
   const makeInputText2 = document.createElement('input')
   const makeSelectForm = document.createElement('select')
@@ -144,6 +156,7 @@ const generateFormRecapDetails = (details, recap_details_form, recap_details_tab
   makeDiv2.setAttribute('class', 'py-2')
   makeDiv3.setAttribute('class', 'py-2')
   makeDiv4.setAttribute('class', 'py-2')
+  makeDiv5.setAttribute('class', 'py-2')
   makeInputText1.setAttribute('type', 'text')
   makeInputText2.setAttribute('type', 'text')
   makeInputText1.setAttribute('class', 'text__form')
@@ -165,6 +178,7 @@ const generateFormRecapDetails = (details, recap_details_form, recap_details_tab
   makeLabel1.innerText = 'Nama Player'
   makeLabel2.innerText = 'Player Server'
   makeLabel3.innerText = 'Player Class'
+  makeLabel4.innerText = `Total Gold : ${details.totalGold}`
   makeInputText1.value = details.accName
   makeInputText2.value = details.accServer
   makeOption1.textContent = 'honored'
@@ -177,8 +191,9 @@ const generateFormRecapDetails = (details, recap_details_form, recap_details_tab
   makeDiv1.append(makeLabel1, makeInputText1)
   makeDiv2.append(makeLabel2, makeInputText2)
   makeDiv3.append(makeLabel3, makeSelectForm)
-  makeDiv4.append(makeSubmit)
-  recap_details_form.append(makeDiv1, makeDiv2, makeDiv3, makeDiv4)
+  makeDiv4.append(makeLabel4)
+  makeDiv5.append(makeSubmit)
+  recap_details_form.append(makeDiv1, makeDiv2, makeDiv3, makeDiv4, makeDiv5)
 
   // make table recap details dataRekap
   details.dataRekap.forEach(data => {

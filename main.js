@@ -26,15 +26,22 @@ input_trans.addEventListener('click', () => {
   create_trans_form.classList.add('input__trans__body')
   generateUI.generateCreateTransForm(create_trans_form)
 
-  create_trans_form.addEventListener('submit', e => {
-    e.preventDefault()
+  const submit_btn = document.getElementById('submit')
+  submit_btn.addEventListener( 'click', () => {
+    let paidStatus = ''
+    if (!create_trans_form.gold__deposited.value){
+      paidStatus = 'no transaction'
+    } else {
+      paidStatus = 'process'
+    }
     
     const transactionData = {
       accName: create_trans_form.acc__name.value,
       startGold: create_trans_form.start__gold.value,
       finishGold: create_trans_form.finish__gold.value,
       goldDeposited: create_trans_form.gold__deposited.value,
-      goldRate: null,
+      goldRate: 0,
+      paidStatus: paidStatus
     }
 
     if (parseInt(transactionData.goldDeposited, 10) > parseInt(transactionData.finishGold, 10)) {
@@ -42,6 +49,8 @@ input_trans.addEventListener('click', () => {
     } else {
       const request = requestHandler.makeRequest(uri, 'POST', transactionData)
       requestHandler.addNewTransaction(request)
+      alert('Berhasil menambahkan data baru')
+      window.location.replace('http://localhost:3000')
     }
   })
 })
@@ -67,6 +76,7 @@ dataTable.addEventListener('click', e => {
             finishGold: select_modal_body.finish__gold.value,
             goldDeposited: select_modal_body.gold__deposited.value,
             goldRate: select_modal_body.gold__rate.value,
+            paidStatus: select_modal_body.paid__status.value
           }
       
           if (parseInt(transactionData.goldDeposited, 10) > parseInt(transactionData.finishGold, 10)) {
@@ -81,6 +91,8 @@ dataTable.addEventListener('click', e => {
         const submit_btn = document.getElementById('submit')
         submit_btn.addEventListener('click', () => {
           updateTransactions()
+          alert('Berhasil Edit Data')
+          window.location.replace('http://localhost:3000')
         })
       })
   }
@@ -144,7 +156,7 @@ search_text.addEventListener('keyup', () => {
 
       document.getElementById('rekapp').addEventListener('click', () => {
 
-        if (rekap.length >= 12) {
+        if (rekap.length >= 8) {
           const recapData = {
             accName: search_text.value,
             accServer: null,
@@ -153,26 +165,15 @@ search_text.addEventListener('keyup', () => {
             playerGain: null,
             companyGain: null
           }
-          console.log(recapData)
   
+          // tambah data ke transactions_recap collection
           const request = requestHandler.makeRequest(recap_uri, 'POST', recapData)
-          const addData = async () => {
-            try {
-              const res = await fetch(request)
-              if(!res.ok) {
-                throw new Error ('Gagal menambah data rekap')
-              }
-              alert('Berhasil menambah data rekap')
-            } catch (err) {
-              console.log(err.message)
-            }
-          }
-          addData()
+          requestHandler.addNewTransaction(request)
 
           rekap = []
           search_text.value = ''
         } else {
-          console.log('Jumlah transaksi minimum untuk direkap adalah 12x')
+          console.log('Jumlah transaksi minimum untuk direkap adalah 8x')
         }
 
       })
