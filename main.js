@@ -89,11 +89,12 @@ dataTable.addEventListener('click', e => {
         }
 
         // update selected data
+        const refresh_loc = 'https://great-class-transmanagement.netlify.app' || 'http://localhost:3000'
         const submit_btn = document.getElementById('submit')
         submit_btn.addEventListener('click', () => {
           updateTransactions()
           alert('Berhasil Edit Data')
-          window.location.replace('http://localhost:3000')
+          window.location.replace(refresh_loc)
         })
       })
   }
@@ -109,7 +110,7 @@ dataTable.addEventListener('click', e => {
 const search_text = document.getElementById('searchByName')
 search_text.addEventListener('keyup', () => {
   if (search_text.value !== '') {
-    const uri = 'http://localhost:5000/search'
+    const uri = 'https://api-gc-transaction-management.herokuapp.com/search'
     const term = search_text.value
     
     const load = async () => {
