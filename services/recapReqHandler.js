@@ -1,4 +1,4 @@
-const load = fetch('http://localhost:5000/api/transactions_recap')
+const load = fetch('https://api-gc-transaction-management.herokuapp.com/api/transactions_recap')
   .then(res => res.json())
   .then(recapdt => {
     return recapdt.data

@@ -3,8 +3,8 @@ import requestHandler from './services/requestHandler'
 import recapReqHandler from './services/recapReqHandler'
 import './style.css'
 
-const uri = 'http://localhost:5000/api/transactions'
-const recap_uri = 'http://localhost:5000/api/transactions_recap'
+const uri = 'https://api-gc-transaction-management.herokuapp.com/api/transactions'
+const recap_uri = 'https://api-gc-transaction-management.herokuapp.com/api/transactions_recap'
 
 // select every element needed to be manipulated by dom from index.html
 const select_wrapper = document.getElementById('wrapper')
