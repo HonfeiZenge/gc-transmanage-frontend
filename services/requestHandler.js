@@ -67,13 +67,14 @@ const getSingleTransaction = async (uri) => {
 
 // make a request to add new data
 const addNewTransaction = async (request) => {
+  const refresh_loc = 'https://great-class-transmanagement.netlify.app' || 'http://localhost:3000'
   try {
     const response = await fetch(request)
     if (!response.ok) {
       throw Error('Failed to add transaction')
     }
     // alert('Berhasil menambahkan data baru')
-    window.location.replace('http://localhost:3000')
+    window.location.replace(refresh_loc)
   } catch (err) {
     console.log(err.message)
   }
@@ -81,13 +82,14 @@ const addNewTransaction = async (request) => {
 
 // make a request to update data inside server
 const updateSingletransaction = async (request) => {
+  const refresh_loc = 'https://great-class-transmanagement.netlify.app' || 'http://localhost:3000'
   try {
     const response = await fetch(request)
     const transaction = await response.json()
 
     if (transaction.status == 'success') {
       // alert('Berhasil Edit Data')
-      window.location.replace('http://localhost:3000')
+      window.location.replace(refresh_loc)
     } else {
       alert(`${transaction.status} Gagal Edit Data`)
     }

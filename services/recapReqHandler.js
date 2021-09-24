@@ -30,9 +30,10 @@ const updateRecapData = async (request) => {
   try {
     const response = await fetch(request)
     const transaction = await response.json()
+    const refresh_loc = 'https://great-class-transmanagement.netlify.app' || 'http://localhost:3000'
 
     if (transaction.status == 'success') {
-      window.location.replace('http://localhost:3000')
+      window.location.replace(refresh_loc)
     } else {
       alert(`${transaction.status} Gagal Edit Data`)
     }

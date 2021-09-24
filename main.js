@@ -44,13 +44,14 @@ input_trans.addEventListener('click', () => {
       paidStatus: paidStatus
     }
 
+    const refresh_loc = 'https://great-class-transmanagement.netlify.app' || 'http://localhost:3000'
     if (parseInt(transactionData.goldDeposited, 10) > parseInt(transactionData.finishGold, 10)) {
       alert('finish gold tidak boleh kurang dari gold deposited')
     } else {
       const request = requestHandler.makeRequest(uri, 'POST', transactionData)
       requestHandler.addNewTransaction(request)
       alert('Berhasil menambahkan data baru')
-      window.location.replace('http://localhost:3000')
+      window.location.replace(refresh_loc)
     }
   })
 })
