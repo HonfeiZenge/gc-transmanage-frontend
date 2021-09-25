@@ -86,7 +86,7 @@ const generateEditForm = (data, select_modal_body) => {
 }
 
 // generate table search by name
-const generateSearchedTable = (data, dataTable) => {
+const generateSearchedTable = (i, data, dataTable) => {
   const makeRow = document.createElement('tr')
   const makeData1 = document.createElement('td')
   const makeData2 = document.createElement('td')
@@ -116,8 +116,8 @@ const generateSearchedTable = (data, dataTable) => {
   makeSpan1.setAttribute('class', 'material-icons p-2 rounded-lg shadow-md bg-green-500 text-md text-white focus:outline-none hover:bg-green-700 cursor-pointer')
   makeSpan2.setAttribute('class', 'material-icons p-2 rounded-lg shadow-md bg-red-500 text-md text-white focus:outline-none hover:bg-red-700 cursor-pointer')
 
-  makeData1.innerText = data.accName
-  makeData2.innerText = data.accServer
+  makeData1.innerText = i
+  makeData2.innerText = data.accName
   makeData3.innerText = data.startGold
   makeData4.innerText = data.finishGold
   makeData5.innerText = data.goldDeposited

@@ -120,10 +120,11 @@ search_text.addEventListener('keyup', () => {
       return data
     }
 
+    let i = 1
     dataTable.innerHTML = ''
     load().then(item => {
       item.map(data => {
-        generateUI.generateSearchedTable(data, dataTable)
+        generateUI.generateSearchedTable(i++, data, dataTable)
       })
 
       const raw_data = document.querySelectorAll('#table_trans_data')
