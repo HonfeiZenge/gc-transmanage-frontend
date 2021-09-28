@@ -116,12 +116,13 @@ const generateSearchedTable = (i, data, dataTable) => {
   makeSpan1.setAttribute('class', 'material-icons p-2 rounded-lg shadow-md bg-green-500 text-md text-white focus:outline-none hover:bg-green-700 cursor-pointer')
   makeSpan2.setAttribute('class', 'material-icons p-2 rounded-lg shadow-md bg-red-500 text-md text-white focus:outline-none hover:bg-red-700 cursor-pointer')
 
+  const time = new Date(data.insertedAt)
   makeData1.innerText = i
   makeData2.innerText = data.accName
   makeData3.innerText = data.startGold
   makeData4.innerText = data.finishGold
   makeData5.innerText = data.goldDeposited
-  makeData6.innerText = data.insertedAt
+  makeData6.innerText = time.toString().substr(7, 18)
   makeData9.innerText = data.goldRate
   makeSpan1.innerText = 'mode_edit_outline'
   makeSpan2.innerText = 'delete'
