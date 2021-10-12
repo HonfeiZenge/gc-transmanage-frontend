@@ -111,10 +111,14 @@ const search_text = document.getElementById('searchByName')
 search_text.addEventListener('keyup', () => {
   if (search_text.value !== '') {
     const uri = 'https://api-gc-transaction-management.herokuapp.com/search'
-    const term = search_text.value
+    const searchValue = search_text.value
+    let latest = searchValue.length - 1
+    let latest2 = latest - 1
+    const limit = searchValue.substr(latest2, latest)
+    const term = searchValue.slice(0, latest2)
     
     const load = async () => {
-      const make = await fetch(`${uri}?term=${term}`)
+      const make = await fetch(`${uri}?term=${term}&limit=${limit}`)
       const response = await make.json()
       const data = response.data
       return data
