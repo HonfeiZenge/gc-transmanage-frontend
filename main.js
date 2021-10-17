@@ -111,7 +111,7 @@ const search_text = document.getElementById('searchByName')
 const limit_text = document.getElementById('limitShow')
 search_text.addEventListener('keyup', () => {
   if (search_text.value !== '') {
-    const uri = 'https://api-gc-transaction-management.herokuapp.com'
+    const uri = 'https://api-gc-transaction-management.herokuapp.com/search'
     const searchValue = search_text.value
     const limitValue = limit_text.value
     
