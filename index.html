@@ -76,12 +76,14 @@
       <p class="text-gray-600 text-l p-4 bg-white shadow-md">Today Transactions</p>
       <div class="rounded-md bg-white m-7">
         <header class="flex justify-between bg-white rounded-t p-3">
-          <h1 class="text-gray-600">Show All Transaction</h1>
-          <div class="w-1/4 h-10 flex">
-            <button id="input_trans" class="w-1/2 p-1 rounded-lg shadow-md bg-green-500 text-md text-white text-xs font-bold focus:outline-none hover:bg-green-700 cursor-pointer">
+          <div class="w-3/4 h-10 flex">
+            <button id="input_trans" class="p-2 rounded-lg shadow-md bg-green-500 text-md text-white text-xs font-bold focus:outline-none hover:bg-green-700 cursor-pointer">
               Add New Transaction
             </button>
-            <input type="text" id="searchByName" class="w-1/2 rounded-lg p-1 ml-1">
+          </div>
+          <div class="w-1/4 h-10 flex">
+            <input type="text" id="limitShow" placeholder="Jumlah Tampil" class="w-1/2 rounded-lg p-1 mr-2">
+            <input type="text" id="searchByName" placeholder="Nama Player" class="w-1/2 rounded-lg p-1 mr-1">
           </div>
         </header>
         <hr class="w-full border-gray-300">

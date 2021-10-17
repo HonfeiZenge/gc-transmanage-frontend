@@ -108,17 +108,21 @@ dataTable.addEventListener('click', e => {
 
 // search by name
 const search_text = document.getElementById('searchByName')
+const limit_text = document.getElementById('limitShow')
 search_text.addEventListener('keyup', () => {
   if (search_text.value !== '') {
-    const uri = 'https://api-gc-transaction-management.herokuapp.com/search'
+    const uri = 'https://api-gc-transaction-management.herokuapp.com'
     const searchValue = search_text.value
-    let latest = searchValue.length - 1
-    let latest2 = latest - 1
-    const limit = searchValue.substr(latest2, latest)
-    const term = searchValue.slice(0, latest2)
+    const limitValue = limit_text.value
+    
+    // LIMIT CODE
+    // let latest = searchValue.length - 1
+    // let latest2 = latest - 1
+    // const limit = searchValue.substr(latest2, latest)
+    // const term = searchValue.slice(0, latest2)
     
     const load = async () => {
-      const make = await fetch(`${uri}?term=${term}&limit=${limit}`)
+      const make = await fetch(`${uri}?term=${searchValue}&limit=${limitValue}`)
       const response = await make.json()
       const data = response.data
       return data
@@ -154,7 +158,7 @@ search_text.addEventListener('keyup', () => {
             finishGold: Number(data[1]),
             goldDeposited: Number(data[2]),
             goldRate: Number(data[4]),
-            createdAt: data[3] 
+            createdAt: data[3]
           }
           return data
         })
@@ -185,6 +189,7 @@ search_text.addEventListener('keyup', () => {
 
       })
     })
+
   } else if (search_text.value === ''){
     requestHandler.getAllTransactions(uri, dataTable)
   }
