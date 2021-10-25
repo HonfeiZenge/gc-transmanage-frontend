@@ -115,12 +115,6 @@ search_text.addEventListener('keyup', () => {
     const searchValue = search_text.value
     const limitValue = limit_text.value
     
-    // LIMIT CODE
-    // let latest = searchValue.length - 1
-    // let latest2 = latest - 1
-    // const limit = searchValue.substr(latest2, latest)
-    // const term = searchValue.slice(0, latest2)
-    
     const load = async () => {
       const make = await fetch(`${uri}?term=${searchValue}&limit=${limitValue}`)
       const response = await make.json()
@@ -245,6 +239,7 @@ show_recap_transactions.addEventListener('click', e => {
           e.preventDefault()
 
           const recapTransactionsData = {
+            accName: recap_details_form.acc__name.value,
             accServer: recap_details_form.acc__server.value,
             accClass: recap_details_form.acc__class.value,
             dataRekap: details.dataRekap,
@@ -254,6 +249,12 @@ show_recap_transactions.addEventListener('click', e => {
           recapReqHandler.updateRecapData(request)
         })
       })
+  }
+
+  // delete transaction recap data
+  if (details_btn.id === 'delete_recap') {
+    const request = requestHandler.makeRequest(`${recap_uri}/${recap_data_id}`, 'DELETE', null)
+    recapReqHandler.delete_transaction_recap(request)
   }
 })
 

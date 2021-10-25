@@ -20,6 +20,9 @@ const printLoad = async (table) => {
         <td data-id="${item._id}" id="details_recap" class="transaction__table__data">
           <span class="material-icons p-2 rounded-lg shadow-md bg-green-500 text-md text-white focus:outline-none hover:bg-green-700 cursor-pointer">mode_edit_outline</span>
         </td>
+        <td data-id="${item._id}" id="delete_recap" class="transaction__table__data">
+          <span class="material-icons p-2 rounded-lg shadow-md bg-red-500 text-md text-white focus:outline-none hover:bg-red-700 cursor-pointer">delete</span>
+        </td>
       </tr>
     `
     table.innerHTML += html
@@ -42,7 +45,25 @@ const updateRecapData = async (request) => {
   }
 }
 
+const delete_transaction_recap = async (request) => {
+  try {
+    const response = await fetch(request)
+    const transaction = await response.json()
+    const refresh_loc = 'https://great-class-transmanagement.netlify.app'
+
+    if (transaction.status == 'success') {
+      window.location.replace(refresh_loc)
+    } else {
+      alert(`${transaction.status} Gagal hapus data`)
+    }
+  }
+  catch(err) {
+    return console.log(err.message)
+  }
+}
+
 export default {
   printLoad,
-  updateRecapData
+  updateRecapData,
+  delete_transaction_recap
 }
