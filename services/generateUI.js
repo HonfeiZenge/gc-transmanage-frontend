@@ -9,7 +9,7 @@ const generateAllTransactionsTable = (i, data, dataTable) => {
     <td class="transaction__table__data">${data.finishGold}</td>
     <td class="transaction__table__data">${data.goldDeposited}</td>
     <td class="transaction__table__data">${data.goldRate}</td>
-    <td class="transaction__table__data">${time.toString().substr(7, 18)}</td>
+    <td class="transaction__table__data">${time.toString().substr(3, 18)}</td>
     <td data-id="${data._id}" class="transaction__table__data edit__btn py-2">
       <span class="material-icons p-2 rounded-lg shadow-md bg-green-500 text-md text-white focus:outline-none hover:bg-green-700 cursor-pointer">mode_edit_outline</span>
     </td>

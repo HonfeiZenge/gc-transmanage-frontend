@@ -8,7 +8,7 @@ const printLoad = async (table) => {
   const data = await load
   table.innerHTML = ''
   data.forEach(item => {
-    const time = new Date(item.insertedAt).toString().slice(8, 24)
+    const time = new Date(item.insertedAt).toString().slice(4, 24)
     let html = `
       <tr class="border border-gray-600">
         <td class="transaction__table__data">${item.accName}</td>
